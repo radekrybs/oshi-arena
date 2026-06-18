@@ -543,6 +543,140 @@ textarea { resize: vertical; min-height: 96px; }
 }
 .social-links a:hover { color: var(--teal-700); border-color: var(--teal-500); }
 
+/* ===== Patient Cases ===== */
+.cases {
+  background:
+    radial-gradient(ellipse 70% 60% at 85% 0%, rgba(21, 170, 191, 0.08), transparent 60%),
+    radial-gradient(ellipse 60% 50% at 0% 100%, rgba(34, 139, 230, 0.07), transparent 55%),
+    #fbfdfe;
+}
+.section-lead {
+  font-size: 1.12rem;
+  max-width: 760px;
+  margin-top: 14px;
+}
+
+/* Case journey — numbered horizontal flow with connector */
+.journey {
+  list-style: none;
+  margin: 0 0 56px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+}
+.journey-step {
+  position: relative;
+  padding-top: 8px;
+}
+.journey-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid var(--teal-500);
+  color: var(--teal-700);
+  font-weight: 800;
+  font-size: 1.05rem;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 1;
+}
+/* connector line between steps */
+.journey-step:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 28px;
+  left: calc(40px + 8px);
+  right: -20px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--teal-500), rgba(21, 170, 191, 0.25));
+  z-index: 0;
+}
+.journey-step h3 { font-size: 1.08rem; margin-bottom: 6px; }
+.journey-step p { font-size: 0.95rem; margin-bottom: 0; }
+
+/* Escalation ladder */
+.escalation {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 34px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 36px;
+}
+.escalation-head { max-width: 720px; margin-bottom: 26px; }
+.escalation-head h3 { font-size: 1.5rem; }
+.escalation-head p { margin-bottom: 0; }
+.ladder {
+  list-style: none;
+  margin: 0; padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.ladder-step {
+  position: relative;
+  padding: 22px 20px;
+  border-radius: var(--radius);
+  background: var(--bg-alt);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--teal-500);
+}
+/* progressively deeper tint to convey "more compute" */
+.ladder-step:nth-child(1) { border-left-color: #63d3e0; }
+.ladder-step:nth-child(2) { border-left-color: var(--teal-500); }
+.ladder-step:nth-child(3) { border-left-color: var(--blue-500); }
+.ladder-human { border-left-color: var(--blue-700); background: rgba(24, 100, 171, 0.06); }
+.ladder-tier {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--teal-700);
+  background: rgba(12, 133, 153, 0.1);
+  padding: 4px 10px;
+  border-radius: 999px;
+  margin-bottom: 12px;
+}
+.ladder-human .ladder-tier { color: var(--blue-700); background: rgba(24, 100, 171, 0.12); }
+.ladder-step h4 { font-size: 1.05rem; margin-bottom: 6px; }
+.ladder-step p { font-size: 0.92rem; margin-bottom: 0; }
+
+/* Safety callout */
+.safety-callout {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  background: linear-gradient(180deg, #f3fbfc, #ffffff);
+  border: 1px solid rgba(12, 133, 153, 0.25);
+  border-radius: var(--radius-lg);
+  padding: 30px 32px;
+  margin-bottom: 36px;
+}
+.safety-icon {
+  flex: 0 0 auto;
+  width: 48px; height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: rgba(12, 133, 153, 0.12);
+  color: var(--teal-700);
+}
+.safety-callout h3 { font-size: 1.2rem; }
+.safety-list { margin: 0; padding-left: 1.1em; display: grid; gap: 8px; }
+.safety-list li { font-size: 0.96rem; color: var(--ink-soft); }
+.safety-list strong { color: var(--ink); }
+
+/* Cases CTA reuses .challenge-submit (dark band) */
+.cases-cta-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.btn-on-dark { color: #fff; border-color: rgba(255, 255, 255, 0.35); }
+.btn-on-dark:hover { color: #fff; border-color: #fff; background: rgba(255, 255, 255, 0.08); }
+
 /* ===== Footer ===== */
 .site-footer {
   background: var(--bg-deep);
@@ -598,6 +732,9 @@ textarea { resize: vertical; min-height: 96px; }
   .roles-grid { grid-template-columns: repeat(2, 1fr); }
   .community-cards { grid-template-columns: 1fr; }
   .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+  .journey { grid-template-columns: repeat(2, 1fr); gap: 28px 24px; }
+  .journey-step:not(:last-child)::after { display: none; }
+  .ladder { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 720px) {
@@ -633,6 +770,11 @@ textarea { resize: vertical; min-height: 96px; }
   .roles-grid { grid-template-columns: 1fr; }
   .challenge-submit { padding: 28px 24px; }
   .hero-cta .btn { flex: 1 1 100%; }
+  .journey { grid-template-columns: 1fr; gap: 20px; }
+  .ladder { grid-template-columns: 1fr; }
+  .escalation { padding: 24px; }
+  .safety-callout { flex-direction: column; gap: 14px; padding: 24px; }
+  .cases-cta-actions .btn { flex: 1 1 100%; }
 }
 
 @media (prefers-reduced-motion: reduce) {

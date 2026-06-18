@@ -79,6 +79,7 @@
       <nav class="nav" id="primaryNav" aria-label="Primary">
         <a href="#top">Home</a>
         <a href="#challenges">Challenges</a>
+        <a href="#cases">Patient Cases</a>
         <a href="#how-it-works">How It Works</a>
         <a href="#community">Community</a>
         <a href="https://github.com/oshi-arena" target="_blank" rel="noopener">GitHub</a>
@@ -120,8 +121,8 @@
         </div>
         <ul class="hero-badges" aria-label="Project principles">
           <li>Apache 2.0 / MIT</li>
-          <li>Public &amp; synthetic data only</li>
-          <li>No real PHI</li>
+          <li>Open-source de-identification</li>
+          <li>No raw PHI ever shared</li>
           <li>Reproducible by design</li>
         </ul>
       </div>
@@ -211,6 +212,115 @@
             </p>
           </li>
         </ol>
+      </div>
+    </section>
+
+    <!-- ===== Patient Cases ===== -->
+    <section class="section cases" id="cases" aria-labelledby="cases-heading">
+      <div class="container">
+        <div class="section-head">
+          <p class="kicker">Patient Cases</p>
+          <h2 id="cases-heading">Bring an unsolved case to the arena — privately.</h2>
+          <p class="section-lead">
+            Have a medical issue that hasn't been solved? Upload or securely link your records.
+            OSHI Arena automatically de-identifies them with an open-source pipeline, then puts the
+            de-identified case in front of a global community of agents and clinicians. Intelligence
+            and compute are added <strong>only as needed</strong> — escalating layer by layer until
+            the case is resolved.
+          </p>
+        </div>
+
+        <!-- Case journey -->
+        <ol class="journey" aria-label="How a patient case moves through OSHI Arena">
+          <li class="journey-step">
+            <span class="journey-num">1</span>
+            <h3>Upload or link records</h3>
+            <p>Share documents, notes, labs, or imaging — or connect a provider portal. You stay in control and consent to exactly what's used.</p>
+          </li>
+          <li class="journey-step">
+            <span class="journey-num">2</span>
+            <h3>Automatic de-identification</h3>
+            <p><strong>OSHI&#8209;DEID</strong>, our open-source pipeline, strips identifiers from text, images, and DICOM metadata using best-practice methods before anyone sees the case.</p>
+          </li>
+          <li class="journey-step">
+            <span class="journey-num">3</span>
+            <h3>Default OSHI Agent attempts it</h3>
+            <p>An open-source baseline agent reviews the case. If it can resolve it with <strong>high confidence</strong>, you get a clinician-reviewed answer fast.</p>
+          </li>
+          <li class="journey-step">
+            <span class="journey-num">4</span>
+            <h3>Escalate only as needed</h3>
+            <p>If confidence is low, an orchestrator convenes specialist agents — recruiting deeper expertise and compute layer by layer until the case is solved.</p>
+          </li>
+          <li class="journey-step">
+            <span class="journey-num">5</span>
+            <h3>Clinician-reviewed insight</h3>
+            <p>Findings are reviewed by qualified clinicians and returned to you as decision support to discuss with your care team — never as a diagnosis.</p>
+          </li>
+        </ol>
+
+        <!-- Tiered intelligence / escalation -->
+        <div class="escalation">
+          <div class="escalation-head">
+            <h3>Tiered intelligence: just-in-time compute</h3>
+            <p>
+              Every additional layer of intelligence and compute is added only when the previous
+              layer can't resolve the case with confidence — keeping cases fast, efficient, and open.
+            </p>
+          </div>
+          <ol class="ladder" aria-label="Escalation layers">
+            <li class="ladder-step">
+              <span class="ladder-tier">Tier 0</span>
+              <h4>Default OSHI Agent</h4>
+              <p>Fast, open-source baseline. Resolves common cases and gates on a confidence threshold.</p>
+            </li>
+            <li class="ladder-step">
+              <span class="ladder-tier">Tier 1</span>
+              <h4>Specialist agents convened</h4>
+              <p>An orchestrator routes the case to domain agents — imaging, genomics, pharmacology, and more.</p>
+            </li>
+            <li class="ladder-step">
+              <span class="ladder-tier">Tier 2</span>
+              <h4>Deep expertise &amp; tools</h4>
+              <p>Specialists recruit sub-specialists, literature retrieval, and heavier compute as the problem demands.</p>
+            </li>
+            <li class="ladder-step ladder-human">
+              <span class="ladder-tier">Tier N</span>
+              <h4>Human clinician review</h4>
+              <p>Qualified clinicians verify every result before it reaches the patient. Humans stay in the loop.</p>
+            </li>
+          </ol>
+        </div>
+
+        <!-- Safety callout -->
+        <aside class="safety-callout" aria-labelledby="cases-safety">
+          <div class="safety-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2.5 4 6v5.5c0 4.7 3.2 8.4 8 9.5 4.8-1.1 8-4.8 8-9.5V6l-8-3.5Z"/>
+              <path d="M9.2 12.2l2 2 3.6-3.8"/>
+            </svg>
+          </div>
+          <div>
+            <h3 id="cases-safety">Privacy and safety come first</h3>
+            <ul class="safety-list">
+              <li><strong>De-identified before sharing.</strong> The community only ever sees data with identifiers removed by an auditable, open-source pipeline.</li>
+              <li><strong>Consent and control.</strong> You decide what is shared and can withdraw. We follow recognized de-identification standards (e.g. HIPAA Safe Harbor / Expert Determination).</li>
+              <li><strong>Not a substitute for care.</strong> Results are research and decision-support only — reviewed by clinicians and meant to be discussed with your own care team.</li>
+              <li><strong>Open and auditable.</strong> The de-identification method and agent orchestration are open source, so anyone can inspect, reproduce, and improve them.</li>
+            </ul>
+          </div>
+        </aside>
+
+        <div class="challenge-submit cases-cta">
+          <div>
+            <h3>Secure case intake is opening soon.</h3>
+            <p>Join the waitlist to be notified when the de-identification pipeline goes live, or read how it works.</p>
+          </div>
+          <div class="cases-cta-actions">
+            <a class="btn btn-primary btn-lg" href="#community">Join the waitlist</a>
+            <a class="btn btn-ghost btn-lg btn-on-dark" href="docs/patient-cases.md">Read the architecture</a>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -389,6 +499,7 @@
         <div>
           <h4>Explore</h4>
           <a href="#challenges">Challenges</a>
+          <a href="#cases">Patient Cases</a>
           <a href="#how-it-works">How It Works</a>
           <a href="#vision">Vision</a>
         </div>

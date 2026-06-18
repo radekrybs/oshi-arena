@@ -22,6 +22,8 @@ Next.js/Tailwind later when the project grows toward a custom dashboard (see
 │   └── favicon.svg                 # Brand mark
 ├── challenges/
 │   └── hand-pose-estimation.md     # Inaugural challenge brief
+├── docs/
+│   └── patient-cases.md            # De-identification + tiered-intelligence design spec
 ├── robots.txt
 ├── sitemap.xml
 ├── LICENSE                         # Apache 2.0
@@ -33,10 +35,25 @@ Next.js/Tailwind later when the project grows toward a custom dashboard (see
 1. **Header / Navigation** (sticky) with "Join the Arena" CTA
 2. **Hero** — headline, subheadline, Gemma-style description, primary/secondary CTAs
 3. **Vision / Why OSHI** — problem, solution, and teaser stats
-4. **How It Works** — 4-step flow (Pose → Collaborate → Evaluate → Merge)
-5. **Featured Challenges** — detailed inaugural challenge + "Submit Your Challenge"
-6. **Community & Participation** — roles, newsletter signup, challenge submission form
-7. **Footer** — nav, open-source notice, contact, "Built for open healthcare innovation"
+4. **Patient Cases** — bring an unsolved case privately: open-source de-identification +
+   tiered-intelligence solving (see [`docs/patient-cases.md`](docs/patient-cases.md))
+5. **How It Works** — 4-step flow (Pose → Collaborate → Evaluate → Merge)
+6. **Featured Challenges** — detailed inaugural challenge + "Submit Your Challenge"
+7. **Community & Participation** — roles, newsletter signup, challenge submission form
+8. **Footer** — nav, open-source notice, contact, "Built for open healthcare innovation"
+
+### Patient Cases (new)
+
+Individuals can bring an unsolved medical issue: records are **automatically de-identified**
+by an open-source pipeline (**OSHI-DEID**), then the de-identified case is solved by an
+escalating, **just-in-time** multi-agent loop — a Default OSHI Agent first, with specialist
+agents and compute added only as needed, and a human clinician verifying every result.
+
+The landing section presents the concept; the full design (de-identification standards,
+modalities, escalation policy, governance) lives in
+[`docs/patient-cases.md`](docs/patient-cases.md). **Safety:** secure intake does not open
+until the audited pipeline is built and reviewed, so the site links to a waitlist/docs CTA
+rather than collecting any records.
 
 ## Run locally
 
@@ -87,7 +104,9 @@ already work.
 ## Principles (baked into the design)
 
 - **Fully open source** — permissive licenses (Apache 2.0 / MIT preferred).
-- **Safety-first for healthcare** — public/synthetic data only, **no real PHI**.
+- **Safety-first for healthcare** — challenges use public/synthetic data only; for Patient
+  Cases, real records are de-identified before sharing so **no raw PHI is ever exposed** to
+  the community, and results are clinician-reviewed decision support (not medical advice).
 - **Reproducible & auditable** — multi-objective evaluation: performance, accuracy,
   efficiency, explainability, fairness.
 - **Inclusive** — autonomous agents, developers, clinicians, and researchers all welcome.

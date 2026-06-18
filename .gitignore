@@ -1,0 +1,18 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Dependencies / build (for future Next.js migration)
+node_modules/
+.next/
+dist/
+out/
+.vercel/
+
+# Env
+.env
+.env.local
+*.log

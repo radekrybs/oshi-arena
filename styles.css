@@ -173,7 +173,7 @@ img, svg { max-width: 100%; }
 .nav {
   display: flex;
   align-items: center;
-  gap: 26px;
+  gap: 20px;
 }
 .nav a {
   color: var(--ink-soft);
@@ -494,7 +494,7 @@ img, svg { max-width: 100%; }
   color: var(--ink);
   margin-bottom: 6px;
 }
-input, textarea {
+input, textarea, select {
   width: 100%;
   font: inherit;
   font-size: 0.98rem;
@@ -505,7 +505,8 @@ input, textarea {
   padding: 11px 14px;
   transition: border-color 0.18s var(--ease), box-shadow 0.18s var(--ease), background 0.18s var(--ease);
 }
-input:focus, textarea:focus {
+select { appearance: none; -webkit-appearance: none; cursor: pointer; }
+input:focus, textarea:focus, select:focus {
   outline: none;
   border-color: var(--teal-500);
   background: #fff;
@@ -676,6 +677,22 @@ textarea { resize: vertical; min-height: 96px; }
 .cases-cta-actions { display: flex; flex-wrap: wrap; gap: 12px; }
 .btn-on-dark { color: #fff; border-color: rgba(255, 255, 255, 0.35); }
 .btn-on-dark:hover { color: #fff; border-color: #fff; background: rgba(255, 255, 255, 0.08); }
+
+/* ===== OSHI Grid (volunteer distributed compute) ===== */
+.grid-section {
+  background:
+    radial-gradient(ellipse 65% 55% at 10% 0%, rgba(34, 139, 230, 0.08), transparent 60%),
+    radial-gradient(ellipse 60% 50% at 100% 100%, rgba(21, 170, 191, 0.07), transparent 55%),
+    #f6fafd;
+}
+.subsection-title {
+  font-size: 1.45rem;
+  margin: 8px 0 24px;
+}
+.grid-signup {
+  max-width: 640px;
+  margin: 36px auto 0;
+}
 
 /* ===== Footer ===== */
 .site-footer {

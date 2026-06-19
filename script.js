@@ -106,4 +106,16 @@
       );
     });
   }
+
+  var grid = document.getElementById("gridForm");
+  if (grid) {
+    grid.addEventListener("submit", function (e) {
+      e.preventDefault();
+      submitForm(
+        grid,
+        document.getElementById("gridStatus"),
+        "You're on the volunteer list — thank you! We'll notify you when the client is ready for your platform."
+      );
+    });
+  }
 })();

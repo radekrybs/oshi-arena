@@ -25,6 +25,11 @@ Next.js/Tailwind later when the project grows toward a custom dashboard (see
 ├── docs/
 │   ├── patient-cases.md            # De-identification + tiered-intelligence design spec
 │   └── oshi-grid.md                # Volunteer distributed-computing design spec
+├── backend/                        # GCP signup API (FastAPI on Cloud Run + Firestore)
+│   ├── app/                        # FastAPI service (main, models, store, config)
+│   ├── infra/                      # Terraform (Cloud Run, Firestore, IAM)
+│   ├── Dockerfile · deploy.sh      # Container + one-command deploy
+│   └── README.md                   # Backend setup, deploy, and data export
 ├── robots.txt
 ├── sitemap.xml
 ├── LICENSE                         # Apache 2.0
@@ -102,18 +107,26 @@ Drop the repository contents onto any static host:
 Set the production domain to `oshiarena.com` and update the canonical/OG URLs in
 `index.html` and `sitemap.xml` if the domain changes.
 
-## Forms
+## Forms & signup backend
 
-The newsletter and challenge-submission forms are wired for the MVP: they validate input
-client-side and show a confirmation. To deliver real submissions, point `submitForm()` in
-`script.js` at an endpoint, e.g.:
+All three forms (newsletter, challenge submission, OSHI Grid volunteer) validate client-side
+and then POST to the **GCP signup backend** in [`backend/`](backend/) — a FastAPI service on
+Cloud Run that stores signups in Firestore.
 
-- **Formspree** — set the `<form action>` and `method="POST"`, or `fetch()` the Formspree URL
-- **Supabase** — insert into a table via the JS client / REST endpoint
-- **FastAPI** — POST JSON to your own backend (matches the suggested project stack)
+The frontend finds the backend via a meta tag in `index.html`:
 
-A single `fetch()` in `submitForm()` is all that's needed; the validation and status UI
-already work.
+```html
+<meta name="oshi-api-base" content="" />
+```
+
+- **Empty (default):** forms run in **offline mode** — they validate and show a confirmation
+  with no network call, so the site is safe to ship before the backend exists.
+- **Set to your Cloud Run URL** (or `https://api.oshiarena.com`): forms POST live to `/signup`.
+
+Deploy the backend with one command (`PROJECT_ID=... ./backend/deploy.sh`) or via Terraform —
+see [`backend/README.md`](backend/README.md). Spam resistance is built in (honeypot field +
+rate limiting). **No health data** flows through this endpoint — only voluntarily submitted
+contact details.
 
 ## Customization
 

@@ -15,6 +15,11 @@
   <meta name="author" content="OSHI Arena" />
   <meta name="theme-color" content="#0b7285" />
 
+  <!-- Backend API base for form submissions. Empty = offline/confirmation-only
+       mode (forms still validate + confirm). Set to your Cloud Run URL (or
+       https://api.oshiarena.com) to collect signups live. See backend/README.md -->
+  <meta name="oshi-api-base" content="" />
+
   <!-- Open Graph / social -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="OSHI Arena | Open Source Healthcare AI Agent Collaboration" />
@@ -409,7 +414,11 @@
           <div class="community-panel" id="grid-join">
             <h3>Join the volunteer grid</h3>
             <p>Tell us what you'd like to power and we'll notify you when the client is ready for your platform.</p>
-            <form id="gridForm" class="stacked-form" novalidate>
+            <form id="gridForm" class="stacked-form" data-signup-type="volunteer" novalidate>
+              <div class="hp-field" aria-hidden="true">
+                <label for="hpGrid">Leave this field empty</label>
+                <input id="hpGrid" type="text" name="website" tabindex="-1" autocomplete="off" />
+              </div>
               <div class="field">
                 <label for="gName">Name</label>
                 <input type="text" id="gName" name="name" autocomplete="name" required />
@@ -540,7 +549,11 @@
           <div class="community-panel">
             <h3>Join the mailing list</h3>
             <p>Get new challenges, leaderboards, and open-source releases in your inbox.</p>
-            <form id="newsletterForm" class="inline-form" novalidate>
+            <form id="newsletterForm" class="inline-form" data-signup-type="newsletter" novalidate>
+              <div class="hp-field" aria-hidden="true">
+                <label for="hpNews">Leave this field empty</label>
+                <input id="hpNews" type="text" name="website" tabindex="-1" autocomplete="off" />
+              </div>
               <label class="visually-hidden" for="newsletterEmail">Email address</label>
               <input
                 type="email"
@@ -565,7 +578,11 @@
           <div class="community-panel" id="submit-challenge">
             <h3>Submit a challenge</h3>
             <p>Tell us about a healthcare problem and we'll help scope it for the arena.</p>
-            <form id="challengeForm" class="stacked-form" novalidate>
+            <form id="challengeForm" class="stacked-form" data-signup-type="challenge" novalidate>
+              <div class="hp-field" aria-hidden="true">
+                <label for="hpChallenge">Leave this field empty</label>
+                <input id="hpChallenge" type="text" name="website" tabindex="-1" autocomplete="off" />
+              </div>
               <div class="field">
                 <label for="cName">Name</label>
                 <input type="text" id="cName" name="name" autocomplete="name" required />

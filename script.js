@@ -51,71 +51,100 @@
   /* ---- Forms ---- */
   var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  function setStatus(el, message, ok) {
+  // Backend base URL from the <meta name="oshi-api-base"> tag. When empty, the
+  // forms run in offline mode: validate + confirm with no network call, so the
+  // site works before the backend is deployed. See backend/README.md.
+  var metaApi = document.querySelector('meta[name="oshi-api-base"]');
+  var API_BASE = ((metaApi && metaApi.content) || "").trim().replace(/\/+$/, "");
+
+  function setStatus(el, message, state) {
     if (!el) return;
     el.textContent = message;
     el.classList.remove("ok", "err");
-    el.classList.add(ok ? "ok" : "err");
+    if (state) el.classList.add(state);
   }
 
-  /**
-   * MVP submit handler. Validates required fields then shows a
-   * confirmation. Replace the body with a fetch() to your endpoint
-   * when wiring real delivery.
-   */
-  function submitForm(form, statusEl, successMsg) {
+  function validate(form, statusEl) {
     var fields = form.querySelectorAll("input[required], textarea[required]");
     for (var i = 0; i < fields.length; i++) {
       var field = fields[i];
       if (!field.value.trim()) {
-        setStatus(statusEl, "Please fill in all fields.", false);
+        setStatus(statusEl, "Please fill in all fields.", "err");
         field.focus();
         return false;
       }
       if (field.type === "email" && !EMAIL_RE.test(field.value.trim())) {
-        setStatus(statusEl, "Please enter a valid email address.", false);
+        setStatus(statusEl, "Please enter a valid email address.", "err");
         field.focus();
         return false;
       }
     }
-    setStatus(statusEl, successMsg, true);
-    form.reset();
     return true;
   }
 
-  var newsletter = document.getElementById("newsletterForm");
-  if (newsletter) {
-    newsletter.addEventListener("submit", function (e) {
+  function collectPayload(form) {
+    var data = { type: form.getAttribute("data-signup-type") || "newsletter" };
+    var els = form.querySelectorAll("input, textarea, select");
+    for (var i = 0; i < els.length; i++) {
+      if (els[i].name) data[els[i].name] = els[i].value;
+    }
+    return data;
+  }
+
+  function handleSubmit(form, statusEl, successMsg) {
+    if (!validate(form, statusEl)) return;
+
+    var payload = collectPayload(form);
+
+    // Honeypot filled => bot. Confirm to avoid signalling, but send nothing.
+    // Offline mode (no backend configured) => confirm without a network call.
+    if (payload.website || !API_BASE) {
+      setStatus(statusEl, successMsg, "ok");
+      form.reset();
+      return;
+    }
+
+    var btn = form.querySelector('button[type="submit"]');
+    if (btn) btn.disabled = true;
+    setStatus(statusEl, "Sending…", "ok");
+
+    fetch(API_BASE + "/signup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    })
+      .then(function (res) {
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        setStatus(statusEl, successMsg, "ok");
+        form.reset();
+      })
+      .catch(function () {
+        setStatus(statusEl, "Sorry — something went wrong. Please try again.", "err");
+      })
+      .finally(function () {
+        if (btn) btn.disabled = false;
+      });
+  }
+
+  function wireForm(formId, statusId, successMsg) {
+    var form = document.getElementById(formId);
+    if (!form) return;
+    form.addEventListener("submit", function (e) {
       e.preventDefault();
-      submitForm(
-        newsletter,
-        document.getElementById("newsletterStatus"),
-        "Thanks! You're on the list — watch your inbox for the next challenge."
-      );
+      handleSubmit(form, document.getElementById(statusId), successMsg);
     });
   }
 
-  var challenge = document.getElementById("challengeForm");
-  if (challenge) {
-    challenge.addEventListener("submit", function (e) {
-      e.preventDefault();
-      submitForm(
-        challenge,
-        document.getElementById("challengeStatus"),
-        "Challenge received — thank you! We'll be in touch to help scope it."
-      );
-    });
-  }
-
-  var grid = document.getElementById("gridForm");
-  if (grid) {
-    grid.addEventListener("submit", function (e) {
-      e.preventDefault();
-      submitForm(
-        grid,
-        document.getElementById("gridStatus"),
-        "You're on the volunteer list — thank you! We'll notify you when the client is ready for your platform."
-      );
-    });
-  }
+  wireForm(
+    "newsletterForm", "newsletterStatus",
+    "Thanks! You're on the list — watch your inbox for the next challenge."
+  );
+  wireForm(
+    "challengeForm", "challengeStatus",
+    "Challenge received — thank you! We'll be in touch to help scope it."
+  );
+  wireForm(
+    "gridForm", "gridStatus",
+    "You're on the volunteer list — thank you! We'll notify you when the client is ready for your platform."
+  );
 })();

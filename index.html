@@ -80,6 +80,7 @@
         <a href="#top">Home</a>
         <a href="#challenges">Challenges</a>
         <a href="#cases">Patient Cases</a>
+        <a href="#grid">OSHI Grid</a>
         <a href="#how-it-works">How It Works</a>
         <a href="#community">Community</a>
         <a href="https://github.com/oshi-arena" target="_blank" rel="noopener">GitHub</a>
@@ -324,6 +325,124 @@
       </div>
     </section>
 
+    <!-- ===== OSHI Grid (volunteer distributed compute) ===== -->
+    <section class="section grid-section" id="grid" aria-labelledby="grid-heading">
+      <div class="container">
+        <div class="section-head">
+          <p class="kicker">OSHI Grid</p>
+          <h2 id="grid-heading">Donate spare compute. Power open healthcare AI — like SETI@home, for medicine.</h2>
+          <p class="section-lead">
+            A laptop, a gaming GPU, a homelab, a cloud credit — sign up and your idle compute
+            joins a global grid that trains models, runs benchmarks, processes de-identified data,
+            and helps solve patient cases. The catch that makes it different from SETI@home:
+            <strong>raw health data never touches a volunteer's machine.</strong> Work is split,
+            protected, computed remotely, and reassembled — with privacy enforced cryptographically.
+          </p>
+        </div>
+
+        <!-- Scatter → compute → gather → reassemble -->
+        <ol class="journey" aria-label="How the OSHI Grid processes work">
+          <li class="journey-step">
+            <span class="journey-num">1</span>
+            <h3>Sign up &amp; connect</h3>
+            <p>Create an account, pick what you want to power, and link a client — native, container, or right in your browser (WASM + WebGPU).</p>
+          </li>
+          <li class="journey-step">
+            <span class="journey-num">2</span>
+            <h3>Secure shards dispatched</h3>
+            <p>The coordinator splits each job into signed work units — public data, meaningless cryptographic shares, or encrypted payloads, depending on sensitivity.</p>
+          </li>
+          <li class="journey-step">
+            <span class="journey-num">3</span>
+            <h3>Compute in your sandbox</h3>
+            <p>Your device runs the signed unit in an isolated sandbox, only when idle — never seeing other units or any reconstructable data.</p>
+          </li>
+          <li class="journey-step">
+            <span class="journey-num">4</span>
+            <h3>Validated &amp; reassembled</h3>
+            <p>Results are cross-checked across volunteers for integrity, then reduced and reassembled into the finished model, benchmark, or dataset.</p>
+          </li>
+        </ol>
+
+        <!-- Choose what you power -->
+        <h3 class="subsection-title">Choose what your compute powers</h3>
+        <div class="roles-grid">
+          <div class="role-card">
+            <h3>Challenge compute</h3>
+            <p>Training and evaluation runs for active challenges, like hand-pose estimation.</p>
+          </div>
+          <div class="role-card">
+            <h3>De-identification</h3>
+            <p>Batch-run the OSHI-DEID pipeline across large public and synthetic corpora.</p>
+          </div>
+          <div class="role-card">
+            <h3>Patient-case solving</h3>
+            <p>Supply the just-in-time compute behind the tiered-intelligence escalation loop.</p>
+          </div>
+          <div class="role-card">
+            <h3>General pool</h3>
+            <p>"Use my compute wherever it's needed most" — the coordinator decides.</p>
+          </div>
+        </div>
+
+        <!-- Privacy & integrity callout -->
+        <aside class="safety-callout" aria-labelledby="grid-safety">
+          <div class="safety-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="10" rx="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+          </div>
+          <div>
+            <h3 id="grid-safety">Privacy and integrity by design</h3>
+            <ul class="safety-list">
+              <li><strong>No raw health data on the grid, ever.</strong> Volunteers only receive public/synthetic data, cryptographic shares that are meaningless alone, or ciphertext they compute on without decrypting.</li>
+              <li><strong>Privacy-preserving methods.</strong> Secret sharing &amp; secure multiparty computation, federated learning with secure aggregation, homomorphic encryption, and trusted enclaves — chosen per job by data sensitivity.</li>
+              <li><strong>Trustworthy results.</strong> Every work unit is computed by multiple independent volunteers and cross-validated, with canary checks and reputation scoring to defeat bad actors.</li>
+              <li><strong>Open &amp; auditable.</strong> Client and server code, crypto protocols, and contribution credits are all open source and reproducible.</li>
+            </ul>
+          </div>
+        </aside>
+
+        <!-- Volunteer signup -->
+        <div class="grid-signup">
+          <div class="community-panel" id="grid-join">
+            <h3>Join the volunteer grid</h3>
+            <p>Tell us what you'd like to power and we'll notify you when the client is ready for your platform.</p>
+            <form id="gridForm" class="stacked-form" novalidate>
+              <div class="field">
+                <label for="gName">Name</label>
+                <input type="text" id="gName" name="name" autocomplete="name" required />
+              </div>
+              <div class="field">
+                <label for="gEmail">Email</label>
+                <input type="email" id="gEmail" name="email" autocomplete="email" required />
+              </div>
+              <div class="field">
+                <label for="gGoal">What would you like to power?</label>
+                <select id="gGoal" name="goal">
+                  <option value="general">General pool — wherever it's needed most</option>
+                  <option value="challenge">Challenge compute (training &amp; eval)</option>
+                  <option value="deid">De-identification throughput</option>
+                  <option value="cases">Patient-case solving</option>
+                  <option value="benchmark">Benchmark &amp; reproducibility runs</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="gResource">Your hardware (optional)</label>
+                <input type="text" id="gResource" name="resource" placeholder="e.g. laptop CPU, NVIDIA GPU, homelab, cloud credits" />
+              </div>
+              <p class="form-hint">
+                You stay in control: compute runs only when your device is idle, with a one-click pause or leave.
+              </p>
+              <button class="btn btn-primary" type="submit">Sign up to volunteer</button>
+              <p class="form-status" id="gridStatus" role="status" aria-live="polite"></p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ===== Featured Challenges ===== -->
     <section class="section" id="challenges" aria-labelledby="challenges-heading">
       <div class="container">
@@ -500,6 +619,7 @@
           <h4>Explore</h4>
           <a href="#challenges">Challenges</a>
           <a href="#cases">Patient Cases</a>
+          <a href="#grid">OSHI Grid</a>
           <a href="#how-it-works">How It Works</a>
           <a href="#vision">Vision</a>
         </div>

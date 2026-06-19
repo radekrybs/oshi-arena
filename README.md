@@ -23,7 +23,8 @@ Next.js/Tailwind later when the project grows toward a custom dashboard (see
 ├── challenges/
 │   └── hand-pose-estimation.md     # Inaugural challenge brief
 ├── docs/
-│   └── patient-cases.md            # De-identification + tiered-intelligence design spec
+│   ├── patient-cases.md            # De-identification + tiered-intelligence design spec
+│   └── oshi-grid.md                # Volunteer distributed-computing design spec
 ├── robots.txt
 ├── sitemap.xml
 ├── LICENSE                         # Apache 2.0
@@ -37,10 +38,12 @@ Next.js/Tailwind later when the project grows toward a custom dashboard (see
 3. **Vision / Why OSHI** — problem, solution, and teaser stats
 4. **Patient Cases** — bring an unsolved case privately: open-source de-identification +
    tiered-intelligence solving (see [`docs/patient-cases.md`](docs/patient-cases.md))
-5. **How It Works** — 4-step flow (Pose → Collaborate → Evaluate → Merge)
-6. **Featured Challenges** — detailed inaugural challenge + "Submit Your Challenge"
-7. **Community & Participation** — roles, newsletter signup, challenge submission form
-8. **Footer** — nav, open-source notice, contact, "Built for open healthcare innovation"
+5. **OSHI Grid** — SETI@home-style volunteer distributed compute with privacy-preserving
+   sharding and reassembly, plus a volunteer signup (see [`docs/oshi-grid.md`](docs/oshi-grid.md))
+6. **How It Works** — 4-step flow (Pose → Collaborate → Evaluate → Merge)
+7. **Featured Challenges** — detailed inaugural challenge + "Submit Your Challenge"
+8. **Community & Participation** — roles, newsletter signup, challenge submission form
+9. **Footer** — nav, open-source notice, contact, "Built for open healthcare innovation"
 
 ### Patient Cases (new)
 
@@ -54,6 +57,24 @@ modalities, escalation policy, governance) lives in
 [`docs/patient-cases.md`](docs/patient-cases.md). **Safety:** secure intake does not open
 until the audited pipeline is built and reviewed, so the site links to a waitlist/docs CTA
 rather than collecting any records.
+
+### OSHI Grid (new)
+
+A **SETI@home-style volunteer distributed-computing** layer: people donate spare compute
+(laptop, GPU, homelab, cloud credits) to train models, run benchmarks, process de-identified
+data, and power patient-case solving. Jobs are **split into work units, computed remotely, and
+reassembled** — but unlike SETI@home, the defining constraint is privacy:
+
+> **Invariant:** a volunteer node never receives raw or reconstructable health data — only
+> public/synthetic data, cryptographic shares that are meaningless alone, or ciphertext it
+> computes on without decrypting.
+
+The design uses data-sensitivity **tiers** (launch on public/synthetic Tier A, then federated
+learning, MPC/secret-sharing, homomorphic encryption, and TEEs), replication + quorum
+validation for integrity, and BOINC-style contribution tracking. The landing section includes
+a volunteer signup; the full architecture is in [`docs/oshi-grid.md`](docs/oshi-grid.md).
+**Safety:** the signup is an email waitlist only — no compute client or data distribution runs
+from the static site.
 
 ## Run locally
 
